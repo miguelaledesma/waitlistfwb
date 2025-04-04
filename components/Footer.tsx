@@ -1,9 +1,6 @@
-import { Github, Linkedin, X } from "lucide-react";
+import { Github, Linkedin, X, Instagram } from "lucide-react";
 import Link from "next/link";
-const LinkedinLink =
-  process.env.NEXT_PUBLIC_LINKEDIN || "https://www.linkedin.com/";
-const TwitterLink = process.env.NEXT_PUBLIC_TWITTER || "https://www.x.com/";
-const GithubLink = process.env.NEXT_PUBLIC_GITHUB || "https://www.github.com/";
+const InstagramLink = "https://www.instagram.com/foreverwhitebeltofficial/";
 
 const CardFooter = () => {
   return (
@@ -20,25 +17,11 @@ const CardFooter = () => {
       {/* Social Media */}
       <div className="flex items-center gap-2">
         <Link
-          href={LinkedinLink}
+          href={InstagramLink}
           target="_blank"
           className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-50 text-gray-600 shadow transition duration-200 ease-linear hover:bg-gray-100 hover:text-gray-500 hover:shadow-none"
         >
-          <Linkedin size={22} />
-        </Link>
-        <Link
-          href={TwitterLink}
-          target="_blank"
-          className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-50 text-gray-600 shadow transition duration-200 ease-linear hover:bg-gray-100 hover:text-gray-500 hover:shadow-none"
-        >
-          <X size={22} />
-        </Link>
-        <Link
-          href={GithubLink}
-          target="_blank"
-          className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-50 text-gray-600 shadow transition duration-200 ease-linear hover:bg-gray-100 hover:text-gray-500 hover:shadow-none"
-        >
-          <Github size={22} />
+          <Instagram size={22} />
         </Link>
       </div>
     </div>

@@ -4,13 +4,16 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Hourglass, LoaderCircle, Mail, User } from "lucide-react";
+import { Hourglass, LoaderCircle, Mail, User, Users } from "lucide-react";
 import { useState } from "react";
+import CardFooter from "./Footer";
+import CardHeader from "./Offer";
 
 const EmailForm = ({ date, title }: { date: string; title: string }) => {
   const [isPending, startTransaction] = useTransition();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [waitlistCount, setWaitlistCount] = useState<number>(10);
 
   const handleClick = () => {
     setIsLoading(true);
@@ -53,7 +56,8 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
 
         if (res.ok) {
           target.reset();
-          toast.success("Thank you for subscribing 🎉");
+          toast.success("Thank you for joining the waitlist 🎉");
+          setWaitlistCount((prevCount) => prevCount + 1);
         } else {
           console.error("Error:", res.status, res.statusText);
           toast.error("Something went wrong");
@@ -67,15 +71,31 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
     <div className="p-5 space-y-8 flex flex-col justify-center">
       <div className="space-y-3">
         {/* <div className="text-orange-500 font-medium">Limited Time Offer</div> */}
-        <span className="text-green-600 bg-green-100 px-2 py-1 rounded text-sm items-center flex gap-1 w-fit">
-          <Hourglass size={14} strokeWidth={2} aria-hidden="true" />
-          {getDaysLeft()} days left
-        </span>
+        <div className="flex gap-4">
+          <span className="text-green-600 bg-green-100 px-2 py-1 rounded text-sm items-center flex gap-1 w-fit">
+            <Hourglass size={14} strokeWidth={2} aria-hidden="true" />
+            {getDaysLeft()} days left
+          </span>
+          <span className="text-green-600 bg-green-100 px-2 py-1 rounded text-sm items-center flex gap-1 w-fit">
+            <Users size={14} strokeWidth={2} aria-hidden="true" />
+            Users on Waitlist: {waitlistCount}
+          </span>
+        </div>
         <h1 className="md:text-4xl text-3xl leading-tight font-semibold">
           {title}
         </h1>
       </div>
-
+      <div className="p-0 divide-y divide-[#F0E4D2]">
+        <div className="space-y-0 pb-0">
+          <div className="space-y-1">
+            <div className="text-orange-500 font-medium">
+              Be the First to Know What’s Coming – Join the Product Waitlist
+              Today!
+            </div>
+          </div>
+        </div>
+        {/* <CardFooter /> */}
+      </div>
       <form onSubmit={(e) => handleSubmit(e)} className="space-y-5">
         <div>
           <Label htmlFor="input-10">Full Name</Label>
@@ -130,6 +150,7 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
           )}
         </Button>
       </form>
+      <CardFooter />
     </div>
   );
 };

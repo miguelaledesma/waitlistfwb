@@ -4,8 +4,7 @@ import EmailForm from "@/components/EmailForm";
 
 export default function Home() {
   const siteLogo =
-    process.env.NEXT_PUBLIC_LOGO ||
-    "https://res.cloudinary.com/dyv1yduua/image/upload/v1733392810/speaker_oiuezn.svg";
+    process.env.NEXT_PUBLIC_LOGO || "https://i.ibb.co/QkZKrHV/Frame-40.png";
   // Data from env
   const features =
     process.env.NEXT_PUBLIC_FEATURES ||
@@ -15,7 +14,7 @@ export default function Home() {
   const date = process.env.NEXT_PUBLIC_LAUNCH_DATE || "2026-01-01";
   const title =
     process.env.NEXT_PUBLIC_TITLE ||
-    "Join the waitlist for the SAAS code library.";
+    "Join the waitlist for FOREVER WHITEBELT OFFICIAL.";
   const description =
     process.env.NEXT_PUBLIC_OFFER_TITLE || "Add offer title from env";
 
@@ -29,15 +28,15 @@ export default function Home() {
         className="w-auto h-25 mx-auto object-contain mb-5"
       />
       <Card>
-        <div className="grid md:grid-cols-2 md:divide-x divide-[#F0E4D2]">
-          <div className="md:order-1 order-2">
+        <div className="grid md:grid-cols-1 md:divide-x divide-[#F0E4D2]">
+          {/* <div className="md:order-1 order-2">
             <CardHeader
               title={description}
               features={features}
               price={price}
               discount={discountPrice}
             />
-          </div>
+          </div> */}
           <div className="md:order-2 order-1">
             <EmailForm date={date} title={title} />
           </div>

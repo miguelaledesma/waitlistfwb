@@ -27,17 +27,20 @@ export const EmailTemplate = () => {
           <Section>
             <Text
               style={text}
-            >{`Big welcome and thanks for subscribing ${process.env.NEXT_PUBLIC_SITE_NAME}`}</Text>
+            >{`Big welcome and thanks for signing up for the waitlist! ${process.env.NEXT_PUBLIC_SITE_NAME}`}</Text>
             <Text style={text}>
-              🚀 The mission is to send out a stylish and simple newsletter that
-              help busy creatives to stay updated without cluttering their
-              inbox.
+              🚀 The mission is to create meaningful community and useful
+              products to extend the longevity of the journey of jujitsu.
             </Text>
             <Text style={text}>
-              🛳 All new AI resources and tools are carefully curated, with only
-              a handful of the best being shipped.
+              🛳 All new products, resources and tools are carefully curated,
+              with only a handful of the best being available and shipped to
+              you.
             </Text>
-            <Text style={text}>Expect a new shipment every Tuesday!</Text>
+            <Text style={text}>
+              Keep up to date on our Instagram Page, @foreverwhitebeltofficial
+              or look out for an email update!
+            </Text>
           </Section>
         </Container>
       </Body>

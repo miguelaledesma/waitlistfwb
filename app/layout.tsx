@@ -22,8 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gradient-to-b from-[#fff6df]  to-[#FEFBF0]`}>
-        <main className="flex justify-center items-center min-h-screen">{children}</main>
+      <body
+        className={`${inter.className} bg-gradient-to-b from-[#fff]  to-[#fff]`}
+      >
+        <main className="flex justify-center items-center min-h-screen">
+          {children}
+        </main>
         <Toaster />
       </body>
     </html>
