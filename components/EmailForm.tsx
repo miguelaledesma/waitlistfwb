@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useTransition, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +11,28 @@ import CardHeader from "./Offer";
 
 const EmailForm = ({ date, title }: { date: string; title: string }) => {
   const [isPending, startTransaction] = useTransition();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [waitlistCount, setWaitlistCount] = useState<number>(10);
+  const [waitlistCount, setWaitlistCount] = useState<number>(0);
+  const [isLoadingCount, setIsLoadingCount] = useState<boolean>(true);
+
+  // Fetch the initial waitlist count
+  useEffect(() => {
+    const fetchWaitlistCount = async () => {
+      try {
+        const response = await fetch("/api/waitlist-count");
+        if (response.ok) {
+          const data = await response.json();
+          setWaitlistCount(data.count);
+        }
+      } catch (error) {
+        console.error("Error fetching waitlist count:", error);
+      } finally {
+        setIsLoadingCount(false);
+      }
+    };
+
+    fetchWaitlistCount();
+  }, []);
 
   const handleClick = () => {
     setIsLoading(true);
@@ -57,7 +76,19 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
         if (res.ok) {
           target.reset();
           toast.success("Thank you for joining the waitlist 🎉");
-          setWaitlistCount((prevCount) => prevCount + 1);
+
+          // Update the waitlist count on the server
+          try {
+            const countResponse = await fetch("/api/waitlist-count", {
+              method: "POST",
+            });
+            if (countResponse.ok) {
+              const data = await countResponse.json();
+              setWaitlistCount(data.count);
+            }
+          } catch (error) {
+            console.error("Error updating waitlist count:", error);
+          }
         } else {
           console.error("Error:", res.status, res.statusText);
           toast.error("Something went wrong");
@@ -78,7 +109,7 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
           </span>
           <span className="text-green-600 bg-green-100 px-2 py-1 rounded text-sm items-center flex gap-1 w-fit">
             <Users size={14} strokeWidth={2} aria-hidden="true" />
-            Users on Waitlist: {waitlistCount}
+            Users on Waitlist: {isLoadingCount ? "..." : waitlistCount}
           </span>
         </div>
         <h1 className="md:text-4xl text-3xl leading-tight font-semibold">
@@ -89,8 +120,8 @@ const EmailForm = ({ date, title }: { date: string; title: string }) => {
         <div className="space-y-0 pb-0">
           <div className="space-y-1">
             <div className="text-orange-500 font-medium">
-              Be the First to Know What’s Coming – Join the Product Waitlist
-              Today!
+              Be the First to Know What&apos;s Coming – Join the Product
+              Waitlist Today!
             </div>
           </div>
         </div>
